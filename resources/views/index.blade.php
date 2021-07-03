@@ -58,8 +58,28 @@
         </div>
     </div>
 
+    {{-- Cart Modal --}}
+    <div class="modal fade" id="CartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cart list</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="delete_stud_id">
+                </div>
+                <div class="modal-footer cart_body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- End cart Modal --}}
+
     <h3 class="text-center p-3 bg-dark text-white mt-4">Post listing
         <a href="#" data-bs-toggle="modal" data-bs-target="#AddStudentModal" class="btn btn-primary float-end btn-sm">Add Product</a>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#CartModal" class="btn btn-primary float-end btn-sm">Cart</a>
     </h3>
      <div class="postRecord"></div>
 </div>
@@ -82,3 +102,6 @@
         }
     </script>
 @endpush
+
+
+

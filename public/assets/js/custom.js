@@ -145,6 +145,75 @@ $(document).on('click', '.delete_student_btn', function(e) {
     });
 });
 
+$(document).on('click', '.addCart', function(e) {
+    e.preventDefault();
+    let id = $(this).attr('id');
+    // alert(id);
+    if (id) {
+        $.ajax({
+            type: "GET",
+            url: "add/to/cart/" + id,
+            // data: "data",
+            dataType: "JSON",
+            success: function(data) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+                if ($.isEmptyObject(data.error)) {
+                    Toast.fire({
+                        type: 'success',
+                        title: data.success
+                    });
+                } else {
+                    Toast.fire({
+                        type: 'error',
+                        title: data.error
+                    });
+                }
+            }
+        });
+    } else {
+        alert('danger');
+    }
+
+});
+
+function getCart() {
+
+    $.ajax({
+        type: "GET",
+        url: "check",
+        success: function(response) {
+            var response = JSON.parse(response);
+            // console.log(response);
+            $('.cart_body').empty();
+            $('.cart_body').append(
+                `<div class="postList" id="example">
+                    <div class="append">
+
+                    </div>
+                </div>`
+            );
+            response.forEach(element => {
+                $('.postList .append').append(`
+                <tr>
+                <td>${element.id}</td>
+                <td>
+                    <img src="storage/posts/${element.image}" class="showcase-image">
+                </td>
+                <td>${element.name}</td>
+                <td>${element.description}</td>
+
+            </tr>
+                `)
+            });
+        }
+    });
+}
+
 function getPostImages() {
     $.ajax({
         type: "GET",
@@ -154,38 +223,41 @@ function getPostImages() {
             // console.log(response);
             $('.postRecord').empty();
             $('.postRecord').append(
-                `<table class="table table-hover dt-responsive nowrap postList" id="example" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Post Image</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
+                `<div class="row postList" id="example">
+                    <div class="col-12 append">
 
-                    <tbody>
-
-                    </tbody>
-                </table>`
+                    </div>
+                </div>`
             );
             response.forEach(element => {
-                $('.postList tbody').append(`
-                <tr>
-                    <td>${element.id}</td>
-                    <td>
-                        <img src="storage/posts/${element.image}" class="showcase-image">
-                    </td>
-                    <td>${element.name}</td>
-                    <td>${element.description}</td>
-                    <td>
-                        <button href="#" class="btn btn-danger btn-sm del_post" id="${element['id']}">Delete</button>
-                        <a href="edit/${element.id}" class="btn btn-primary btn-sm">Edit</a>
-                    </td>
-                </tr>
+                $('.postList .append').append(`
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="storage/posts/${element.image}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">${element.name}</h5>
+                            <p class="card-text">${element.description}</p>
+                            <button href="#" class="btn btn-primary btn-sm addCart" id="${element['id']}">Add Cart</button>
+                        </div>
+                    </div>
                 `)
             });
         }
     });
+}
+
+
+
+{
+    /* <tr>
+                        <td>${element.id}</td>
+                        <td>
+                            <img src="storage/posts/${element.image}" class="showcase-image">
+                        </td>
+                        <td>${element.name}</td>
+                        <td>${element.description}</td>
+                        <td>
+                            <button href="#" class="btn btn-danger btn-sm del_post" id="${element['id']}">Delete</button>
+                            <a href="edit/${element.id}" class="btn btn-primary btn-sm">Edit</a>
+                        </td>
+                    </tr> */
 }

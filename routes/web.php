@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 
@@ -21,3 +22,9 @@ Route::get('edit/{id}',[PostController::class,'edit']);
 Route::post('edit/update_post/{id}',[PostController::class,'update']);
 
 Route::post('del_post/{id}',[PostController::class,'destroy']);
+
+Route::get('add/to/cart/{id}',[CartController::class,'addCart']);
+
+Route::get('check',[CartController::class,'check']);
+
+
