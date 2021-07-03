@@ -181,38 +181,6 @@ $(document).on('click', '.addCart', function(e) {
 
 });
 
-function getCart() {
-
-    $.ajax({
-        type: "GET",
-        url: "check",
-        success: function(response) {
-            var response = JSON.parse(response);
-            // console.log(response);
-            $('.cart_body').empty();
-            $('.cart_body').append(
-                `<div class="postList" id="example">
-                    <div class="append">
-
-                    </div>
-                </div>`
-            );
-            response.forEach(element => {
-                $('.postList .append').append(`
-                <tr>
-                <td>${element.id}</td>
-                <td>
-                    <img src="storage/posts/${element.image}" class="showcase-image">
-                </td>
-                <td>${element.name}</td>
-                <td>${element.description}</td>
-
-            </tr>
-                `)
-            });
-        }
-    });
-}
 
 function getPostImages() {
     $.ajax({
@@ -244,6 +212,8 @@ function getPostImages() {
         }
     });
 }
+
+
 
 
 
